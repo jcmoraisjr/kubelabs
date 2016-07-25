@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-master-{{NS}}
+  labels:
+    namespace: {{NS}}
+    type: jenkins-master
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  nfs:
+    server: {{IP}}
+    path: /var/nfs/jenkins/{{NS}}/master
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-agent-{{NS}}
+  labels:
+    namespace: {{NS}}
+    type: jenkins-agent
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  nfs:
+    server: {{IP}}
+    path: /var/nfs/jenkins/{{NS}}/agent
